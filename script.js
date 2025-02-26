@@ -25,7 +25,7 @@ const make_all_button=(button_data)=>{
     button_data.forEach(btn_single_data => {
         const div=document.createElement('div');
         div.innerHTML=`
-        <button class="btn w-[312px] h-[104px] flex gap-4 rounded-lg bg-white border border-[#0e798125] "><img  src="${btn_single_data.category_icon}" alt="" srcset="">
+        <button onclick="display_categories('${btn_single_data.category}')" class="btn w-[312px] h-[104px] flex gap-4 rounded-lg bg-white border border-[#0e798125] "><img  src="${btn_single_data.category_icon}" alt="" srcset="">
     <h1 class="text-3xl font-bold">${btn_single_data.category}</h1></button>
 
         `
@@ -49,7 +49,7 @@ const make_all_button=(button_data)=>{
 // pet container
 const pet_container=document.getElementById('pets-container');
 
-const all_pet_data=async()=>{
+const all_pet_data=async(categories)=>{
    try {
     const response =await fetch("https://openapi.programming-hero.com/api/peddy/pets");
     const data=await response.json();
@@ -64,10 +64,14 @@ const all_pet_data=async()=>{
 all_pet_data();
 
 const load_pet_details=async(pet_data)=>{
+    
+    pet_container.innerHTML='';
     pet_data.forEach(single_pet_details => {
+        console.log(single_pet_details);
+        
         const new_div=document.createElement('div');
         new_div.classList=`h-auto border bg-base-100 w-96 shadow-sm rounded-xl`
-        new_div.innerHTML=`  <figure class="px-5 pt-5">
+        new_div.innerHTML=`<figure class="px-5 pt-5">
               <img
                 src=${single_pet_details.image}
                 alt="Shoes"
@@ -120,8 +124,11 @@ view_button.addEventListener('click',function (e) {
     window.scrollTo(0,300);
 })
 
-const pet_breed_check=(breed_data)=>{
-    
-    
+// display categories
+const display_categories=async(categoryName)=>{
+const click_category=await fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`)
+const category_data=await click_category.json();
+load_pet_details(category_data.data);
+console.log(category_data.data);
+
 }
-// pet breed check
