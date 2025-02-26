@@ -78,22 +78,26 @@ const load_pet_details=async(pet_data)=>{
 <div id="" class="flex flex-col gap-2 ms-5">
     <span id="" class="flex">
         <img class="w-5 h-5" src="images/icon/grid-4-svgrepo-com.svg" alt=""></img>
-        <p>Breed:</p> <p id="">${single_pet_details.breed}</p>
+        <p>Breed:</p> <p id="">${ !single_pet_details.breed || single_pet_details.breed.length === 0  ? 'unknown' : single_pet_details.breed
+        }</p>
     </span>
     <span id="" class="flex">
         <img class="w-5 h-5" src="images/icon/date-svgrepo-com.svg" alt="">
         <p>Birth:</p>
-        <p id="">${single_pet_details.date_of_birth}</p>
+        <p id="">${ !single_pet_details.date_of_birth || single_pet_details.date_of_birth.length === 0  ? 'unknown' : single_pet_details.date_of_birth
+        }</p>
     </span>
     <span id="" class="flex">
         <img  class="w-5 h-5" src="images/icon/gender-female-svgrepo-com.svg" alt="">
         <p>Gender:</p>
-        <p id="">${single_pet_details.gender}</p>
+        <p id="">${ !single_pet_details.gender|| single_pet_details.gender.length === 0  ? 'unknown' : single_pet_details.gender
+        }</p>
     </span>
     <span id="" class="flex">
         <img class="w-5 h-5" src="images/icon/money-svgrepo-com.svg" alt="">
         <p>Price:</p>
-        <p id="">${single_pet_details.price} $</p>
+        <p id="">${ !single_pet_details.price || single_pet_details.price.length === 0  ? 'update later' : single_pet_details.price
+        } $</p>
     </span>
     
 </div>             
@@ -110,3 +114,14 @@ pet_container.appendChild(new_div);
         
     });
 }
+// view button scroll
+const view_button=document.getElementById('view_more_btn');
+view_button.addEventListener('click',function (e) {
+    window.scrollTo(0,300);
+})
+
+const pet_breed_check=(breed_data)=>{
+    
+    
+}
+// pet breed check
