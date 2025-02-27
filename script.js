@@ -45,7 +45,7 @@ const all_pet_data=async(categories)=>{
     const data=await response.json();
     const pet_data=data.pets;
     load_pet_details(pet_data);
-    
+     sort_details(pet_data);
    } catch (error) {
     console.error('find pet eror',error);
     
@@ -53,11 +53,13 @@ const all_pet_data=async(categories)=>{
 }
 all_pet_data();
 
-const load_pet_details=async(pet_data)=>{
+const load_pet_details=(pet_data)=>{
+    
     
     pet_container.innerHTML='';
     pet_data.forEach(single_pet_details => {
-        // console.log(single_pet_details);
+        console.log(single_pet_details);
+        
         
         const new_div=document.createElement('div');
         new_div.classList=`h-auto border bg-base-100 w-[365px] shadow-sm rounded-xl`
@@ -98,7 +100,7 @@ const load_pet_details=async(pet_data)=>{
 <hr class="mb-5 mt-5 mx-4">
 <div class="card-actions flex justify-evenly mb-5">
                 <button onclick="select_pet('${single_pet_details.image}')" class="btn bg-white"><img class="w-8 h-8" src="images/icon/like-svgrepo-com.svg" alt="" srcset=""></button>
-                <button class="btn bg-white text-2xl text-teal-600">Adopt</button>
+                <button  class="btn bg-white text-2xl text-teal-600">Adopt</button>
                 <button onclick="modal_id('${single_pet_details.petId}')" class="btn bg-white text-2xl text-teal-600">Details</button>
               </div>
             </div>
@@ -209,4 +211,18 @@ const spinner_box=document.getElementById('spinner');
 const spinner=()=>{
     pet_container.classList.add('hidden')
     spinner_box.classList.remove('hidden')
+}
+
+// sort data
+const sort_data=()=>{
+    const all_data=all_pet_data();
+   
+    
+}
+function sort_details(all_pet) {
+   all_pet.sort((a,b)=>a.price-b.price);
+   load_pet_details(all_pet);
+   
+    
+    
 }
