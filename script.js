@@ -67,10 +67,10 @@ const load_pet_details=async(pet_data)=>{
     
     pet_container.innerHTML='';
     pet_data.forEach(single_pet_details => {
-        console.log(single_pet_details);
+        // console.log(single_pet_details);
         
         const new_div=document.createElement('div');
-        new_div.classList=`h-auto border bg-base-100 w-96 shadow-sm rounded-xl`
+        new_div.classList=`h-auto border bg-base-100 w-[365px] shadow-sm rounded-xl`
         new_div.innerHTML=`<figure class="px-5 pt-5">
               <img
                 src=${single_pet_details.image}
@@ -107,9 +107,9 @@ const load_pet_details=async(pet_data)=>{
 </div>             
 <hr class="mb-5 mt-5 mx-4">
 <div class="card-actions flex justify-evenly mb-5">
-                <button class="btn bg-white"><img class="w-8 h-8" src="images/icon/like-svgrepo-com.svg" alt="" srcset=""></button>
+                <button onclick="select_pet('${single_pet_details.image}')" class="btn bg-white"><img class="w-8 h-8" src="images/icon/like-svgrepo-com.svg" alt="" srcset=""></button>
                 <button class="btn bg-white text-2xl text-teal-600">Adopt</button>
-                <button class="btn bg-white text-2xl text-teal-600">Details</button>
+                <button onclick="modal_id('${single_pet_details.petId}')" class="btn bg-white text-2xl text-teal-600">Details</button>
               </div>
             </div>
           </div>
@@ -132,3 +132,87 @@ load_pet_details(category_data.data);
 console.log(category_data.data);
 
 }
+// select pet area
+const select_area=document.getElementById('select-area');
+const select_pet=(pet_img)=>{
+    const new_img=document.createElement('img');
+    new_img.src=`${pet_img}`
+    select_area.appendChild(new_img);
+
+   
+    
+}
+// modal details
+const modal_id=async(modal_id)=>{
+    try {
+        const response=await fetch(`https://openapi.programming-hero.com/api/peddy/pet/${modal_id}`);
+    const data=await response.json();
+    const each_data=data.petData
+    open_modal(each_data);
+    } catch (error) {
+        console.error('modal data eror',error);
+        
+    }
+    
+}
+// "petId": 1,
+// "breed": "Golden Retriever",
+// "category": "Dog",
+// "date_of_birth": "2023-01-15",
+// "price": 1200,
+// "image": "https://i.ibb.co.com/p0w744T/pet-1.jpg",
+// "gender": "Male",
+// "pet_details": "This friendly male Golden Retriever is energetic and loyal, making him a perfect companion for families. Born on January 15, 2023, he enjoys playing outdoors and is especially great with children. Fully vaccinated, he's ready to join your family and bring endless joy. Priced at $1200, he offers love, loyalty, and a lively spirit for those seeking a playful yet gentle dog.",
+// "vaccinated_status": "Fully",
+// "pet_name": "Sunny"
+const modal_container = document.getElementById('my_modal_4');
+const modal_content = document.getElementById('modal-content');
+
+const open_modal = (each_data) => {
+    if (!modal_container || !modal_content) {
+        console.error("Modal container or content section not found!");
+        return;
+    }
+
+    modal_content.innerHTML = `
+      <div>
+        <img class="w-[636PX] h-[320PX]" src="${each_data?.image || 'images/default.jpg'}" alt="Pet">
+                      <h2 class="card-title my-3 text-2xl ms-5">${each_data.pet_name}</h2>
+
+        <div class="flex flex-col gap-2 ms-5">
+          <span class="flex">
+            <img class="w-5 h-5" src="images/icon/grid-4-svgrepo-com.svg" alt="">
+            <p>Breed:</p> <p>${ each_data?.breed?.length ? each_data.breed : 'Unknown' }</p>
+          </span>
+          <span class="flex">
+            <img class="w-5 h-5" src="images/icon/date-svgrepo-com.svg" alt="">
+            <p>Birth:</p> <p>${ each_data?.date_of_birth?.length ? each_data.date_of_birth : 'Unknown' }</p>
+          </span>
+          <span class="flex">
+            <img class="w-5 h-5" src="images/icon/gender-female-svgrepo-com.svg" alt="">
+            <p>Gender:</p> <p>${ each_data?.gender?.length ? each_data.gender : 'Unknown' }</p>
+          </span>
+          <span class="flex">
+            <img class="w-5 h-5" src="images/icon/money-svgrepo-com.svg" alt="">
+            <p>Price:</p> <p>${ each_data?.price?.length ? each_data.price : 'Update later' } $</p>
+          </span>
+        </div>             
+        <div>
+          <h1>Details information</h1>
+          <p class="">${each_data.pet_details}</p>
+        </div>
+
+        <!-- Close Button Inside Modal -->
+        <div class="modal-action">
+            <button id="close-modal-btn" class="btn btn-block bg-red-500 text-white">Close</button>
+        </div>
+      </div>
+    `;
+
+    modal_container.showModal();
+
+    // Close modal when the close button is clicked
+    document.getElementById('close-modal-btn').addEventListener('click', () => {
+        modal_container.close();
+    });
+};
