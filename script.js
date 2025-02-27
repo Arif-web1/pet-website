@@ -25,7 +25,7 @@ const make_all_button=(button_data)=>{
     button_data.forEach(btn_single_data => {
         const div=document.createElement('div');
         div.innerHTML=`
-        <button onclick="display_categories('${btn_single_data.category}')" class="btn w-[312px] h-[104px] flex gap-4 rounded-lg bg-white border border-[#0e798125] "><img  src="${btn_single_data.category_icon}" alt="" srcset="">
+        <button onclick="spinner();setTimeout(display_categories, 2000,'${btn_single_data.category}')" class="btn w-[312px] h-[104px] flex gap-4 rounded-lg bg-white border border-[#0e798125] "><img  src="${btn_single_data.category_icon}" alt="" srcset="">
     <h1 class="text-3xl font-bold">${btn_single_data.category}</h1></button>
 
         `
@@ -33,16 +33,6 @@ const make_all_button=(button_data)=>{
     });
     
 }
-// "petId": 1,
-// "breed": "Golden Retriever",
-// "category": "Dog",
-// "date_of_birth": "2023-01-15",
-// "price": 1200,
-// "image": "https://i.ibb.co.com/p0w744T/pet-1.jpg",
-// "gender": "Male",
-// "pet_details": "This friendly male Golden Retriever is energetic and loyal, making him a perfect companion for families. Born on January 15, 2023, he enjoys playing outdoors and is especially great with children. Fully vaccinated, he's ready to join your family and bring endless joy. Priced at $1200, he offers love, loyalty, and a lively spirit for those seeking a playful yet gentle dog.",
-// "vaccinated_status": "Fully",
-// "pet_name": "Sunny"
 
 
 
@@ -125,10 +115,14 @@ view_button.addEventListener('click',function (e) {
 })
 
 // display categories
+
 const display_categories=async(categoryName)=>{
+    pet_container.classList.remove('hidden')
+    spinner_box.classList.add('hidden')
 const click_category=await fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`)
 const category_data=await click_category.json();
 load_pet_details(category_data.data);
+
 console.log(category_data.data);
 
 }
@@ -155,16 +149,8 @@ const modal_id=async(modal_id)=>{
     }
     
 }
-// "petId": 1,
-// "breed": "Golden Retriever",
-// "category": "Dog",
-// "date_of_birth": "2023-01-15",
-// "price": 1200,
-// "image": "https://i.ibb.co.com/p0w744T/pet-1.jpg",
-// "gender": "Male",
-// "pet_details": "This friendly male Golden Retriever is energetic and loyal, making him a perfect companion for families. Born on January 15, 2023, he enjoys playing outdoors and is especially great with children. Fully vaccinated, he's ready to join your family and bring endless joy. Priced at $1200, he offers love, loyalty, and a lively spirit for those seeking a playful yet gentle dog.",
-// "vaccinated_status": "Fully",
-// "pet_name": "Sunny"
+
+// modal
 const modal_container = document.getElementById('my_modal_4');
 const modal_content = document.getElementById('modal-content');
 
@@ -216,3 +202,11 @@ const open_modal = (each_data) => {
         modal_container.close();
     });
 };
+
+// spinner
+const spinner_box=document.getElementById('spinner');
+
+const spinner=()=>{
+    pet_container.classList.add('hidden')
+    spinner_box.classList.remove('hidden')
+}
