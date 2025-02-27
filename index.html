@@ -11,6 +11,9 @@
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 <!-- custom css -->
  <link rel="stylesheet" href="style.css">
+ <!-- font awesome -->
+ <script src="https://kit.fontawesome.com/a4bf8aeaaf.js" crossorigin="anonymous"></script>
+
 </head>
 <body class="lato-regular">
     <!-- main container-->
@@ -94,9 +97,53 @@
            </form>
        </div> -->
    </dialog>
+   
     <!-- footer -->
      <footer id="" class="mt-16">
-
+        <footer class="w-full bg-black text-white py-10 px-6">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+              
+              <!-- Left Section (Brand & Contact) -->
+              <div>
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+                  <span class="text-teal-500">🐾</span> Peddy
+                </h2>
+                <p class="mt-2">Location: av. Washington 165, NY CA 54003</p>
+                <p class="mt-1">Phone: +31 85 964 47 25</p>
+                <p class="mt-1">Email: info@yourdomain.com</p>
+                <p class="mt-1">Opening hours: 9:00 AM - 5:00 PM</p>
+          
+                <!-- Social Icons -->
+                <div class="flex gap-3 mt-4">
+                  <a href="#" class="text-blue-500 text-2xl"><i class="fab fa-facebook"></i></a>
+                  <a href="#" class="text-white text-2xl"><i class="fab fa-x-twitter"></i></a>
+                  <a href="#" class="text-red-500 text-2xl"><i class="fab fa-youtube"></i></a>
+                  <a href="#" class="text-pink-500 text-2xl"><i class="fab fa-instagram"></i></a>
+                </div>
+              </div>
+          
+              <!-- Middle Section (Links) -->
+              <div>
+                <h3 class="text-lg font-semibold">Useful Links</h3>
+                <ul class="mt-2 space-y-2">
+                  <li><a href="#" class="hover:text-teal-400">Home</a></li>
+                  <li><a href="#" class="hover:text-teal-400">About Us</a></li>
+                  <li><a href="#" class="hover:text-teal-400">Animals</a></li>
+                  <li><a href="#" class="hover:text-teal-400">Foundation</a></li>
+                  <li><a href="#" class="hover:text-teal-400">Contact</a></li>
+                </ul>
+              </div>
+          
+              <!-- Right Section (Subscribe Form) -->
+              <div>
+                <h3 class="text-lg font-semibold">Drop a Message</h3>
+                <input type="email" placeholder="Enter your email" class="w-full p-2 mt-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500">
+                <button class="w-full mt-3 bg-teal-600 hover:bg-teal-700 text-white py-2 rounded-md">Subscribe</button>
+              </div>
+          
+            </div>
+          </footer>
+          
      </footer>
     <script src="script.js"></script>
 </body>
